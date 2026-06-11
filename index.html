@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tattoo & Art</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-page">
+  <!-- Carrusel de video de fondo -->
+  <div id="bgCarousel" class="carousel slide background-carousel" data-bs-ride="carousel" data-bs-interval="9000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <video autoplay muted loop playsinline class="d-block w-100">
+          <source src="fondo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-item">
+        <video autoplay muted loop playsinline class="d-block w-100">
+          <source src="fondo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-item">
+        <video autoplay muted loop playsinline class="d-block w-100">
+          <source src="fondo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bg-audio" preload="auto" src="tatto song.mpeg"></audio>
+  <button id="play-music-btn" class="music-btn">Escuchar música</button>
+
+  <!-- Header -->
+  <header class="navbar navbar-dark bg-dark bg-opacity-75 fixed-top">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <img src="logo.png" alt="Logo Tattoo & Art" class="header-logo">
+      <a class="navbar-brand titulo" href="#">Tattoo & Art</a>
+      <nav>
+        <a class="nav-link text-light" href="#descripcion">Sobre Nosotros</a>
+        <a class="nav-link text-light" href="#catalogo">Catálogo</a>
+        <a class="nav-link text-light" href="#contactos">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Descripción -->
+  <section id="descripcion" class="descripcion container text-center my-5 pt-5 parallax">
+    <h2 class="subtitulo">Sobre Nosotros</h2>
+    <p>Bienvenido a Tattoo & Art, un espacio donde el arte corporal cobra vida. Estilo único, precisión y creatividad.</p>
+    <p>Ubicados en Alhue, Melipilla, Metropolitana, ofrecemos una experiencia personalizada para cada cliente. ¡Descubre tu próximo tatuaje con nosotros!</p>
+  </section>
+
+  <!-- Catálogo -->
+  <section id="catalogo" class="catalogo container my-5 parallax">
+    <h2 class="subtitulo text-center">Catálogo de Diseños</h2>
+    <div class="row justify-content-center">
+      <div class="col-6 col-md-3 mb-4"><img src="tattoo1.jpg" class="img-fluid rounded shadow" alt="Tatuaje 1"></div>
+      <div class="col-6 col-md-3 mb-4"><img src="tattoo2.jpg" class="img-fluid rounded shadow" alt="Tatuaje 2"></div>
+      <div class="col-6 col-md-3 mb-4"><img src="tattoo3.jpg" class="img-fluid rounded shadow" alt="Tatuaje 3"></div>
+      <div class="col-6 col-md-3 mb-4"><img src="tattoo4.jpg" class="img-fluid rounded shadow" alt="Tatuaje 4"></div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="catalogos/catalogo.html" class="btn btn-main">
+        Ver Catálogo Completo
+      </a>
+    </div>
+  </section>
+
+  <!-- Sección extra para alargar la página -->
+  <section id="servicios" class="servicios container my-5 parallax">
+    <h2 class="subtitulo text-center">¿Por qué elegir Tattoo & Art?</h2>
+    <div class="row gy-4 mt-4">
+      <div class="col-12 col-md-4">
+        <div class="feature-card p-4 h-100">
+          <h5 class="text-light">Atención personalizada</h5>
+          <p class="text-light-50">Tu diseño se crea bajo tus ideas y nuestros artistas te acompañan paso a paso para asegurar el resultado perfecto.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="feature-card p-4 h-100">
+          <h5 class="text-light">Higiene y seguridad</h5>
+          <p class="text-light-50">Estudio equipada con los más altos estándares sanitarios y materiales de calidad profesional.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="feature-card p-4 h-100">
+          <h5 class="text-light">Estilo único</h5>
+          <p class="text-light-50">Cada tatuaje es una pieza exclusiva creada con detalle, volumen y personalidad.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a id="btnReservaChat" href="#!" class="btn btn-main">Reserva tu hora por chat bot</a>
+    </div>
+  </section>
+
+  <!-- Sección de tatuadores -->
+  <section id="tatuadores" class="tatuadores container my-5 parallax">
+    <h2 class="subtitulo text-center">Conoce a Nuestros Artistas</h2>
+    
+    <div class="artist-list mt-5">
+      <div class="artist-item row align-items-center my-5">
+        <div class="col-12 col-md-6">
+          <img src="tatuadores/tatuador1.jpg" class="artist-image-large w-100 rounded" alt="Carlos Ink">
+        </div>
+        <div class="col-12 col-md-6 ps-md-4">
+          <h5 class="text-light">Valeria Noir</h5>
+          <p class="text-light-50">Especialista en tatuajes tribales y diseños geométricos. Con más de 10 años de experiencia, Carlos es maestro en líneas precisas y sombras profundas. Su pasión por la geometría sagrada lo hace perfecto para quienes buscan tatuajes con significado y estilo clásico.</p>
+          <p class="text-light-50"><strong>Especialidades:</strong> Tribales, Geométricos, Blackwork</p>
+        </div>
+      </div>
+
+      <div class="artist-item row align-items-center my-5">
+        <div class="col-12 col-md-6 order-md-2">
+          <img src="tatuadores/tatuador2.jpg" class="artist-image-large w-100 rounded" alt="Valeria Noir">
+        </div>
+        <div class="col-12 col-md-6 ps-md-4 order-md-1">
+          <h5 class="text-light">Carlos Ink</h5>
+          <p class="text-light-50">Experto en tatuajes realistas y blackwork con un toque de fantasía. Valeria combina técnica impecable con creatividad para crear obras únicas y personalizadas que capturan la esencia de cada cliente. Sus diseños son verdaderas obras maestras del arte corporal.</p>
+          <p class="text-light-50"><strong>Especialidades:</strong> Realistas, Blackwork, Fantasía</p>
+        </div>
+      </div>
+
+      <div class="artist-item row align-items-center my-5">
+        <div class="col-12 col-md-6">
+          <img src="tatuadores/tatuador3.jpg" class="artist-image-large w-100 rounded" alt="Diego Mystic">
+        </div>
+        <div class="col-12 col-md-6 ps-md-4">
+          <h5 class="text-light">Diego Mystic</h5>
+          <p class="text-light-50">Maestro en diseños místicos, florales y ornamentales con influencias ancestrales. Diego crea tatuajes que cuentan historias y transmiten energía espiritual. Cada obra es una conexión entre el arte y el alma del cliente.</p>
+          <p class="text-light-50"><strong>Especialidades:</strong> Místicos, Florales, Ornamentales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contactos" class="contactos text-center py-4 bg-dark bg-opacity-75 parallax">
+    <h2 class="subtitulo">Contáctanos</h2>
+    <div class="d-flex justify-content-center gap-3 mt-3">
+      <a href="https://instagram.com/tattooart" target="_blank" class="contact-link" aria-label="Instagram">
+        <img src="instagram.png" alt="Instagram" class="contact-icon">
+      </a>
+      <a href="https://facebook.com/tattooart" target="_blank" class="contact-link" aria-label="Facebook">
+        <img src="facebook.png" alt="Facebook" class="contact-icon">
+      </a>
+      <a href="mailto:tattooart@gmail.com" class="contact-link" aria-label="Correo">
+        <img src="correo.png" alt="Correo" class="contact-icon">
+      </a>
+    </div>
+    <p class="mt-3 text-light">© 2026 Tattoo & Art - Alhue, Melipilla, Metropolitana. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Chatbot flotante -->
+  <div id="chatbot-flotante" class="shadow-lg"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+

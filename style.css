@@ -1,0 +1,512 @@
+/* Fondo de video */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+body {
+  padding-top: 100px;
+}
+
+video#bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.background-carousel {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.background-carousel .carousel-inner,
+.background-carousel .carousel-item {
+  height: 100%;
+}
+
+.background-carousel video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  opacity: 0.95;
+}
+
+.background-carousel .carousel-indicators {
+  display: none;
+}
+
+.background-carousel .carousel-control-prev,
+.background-carousel .carousel-control-next {
+  display: none;
+}
+
+/* Títulos animados */
+.titulo, .subtitulo {
+  color: #5f5757; /* rojo sangre */
+  animation: pulse 2s infinite;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  text-align: center;
+}
+
+.subtitulo::before {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1rem;
+  background-image: url("sticker.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;
+}
+
+#contactos .subtitulo::before {
+  content: none;
+  display: none;
+}
+
+/* Separación entre secciones */
+section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+section + section {
+  margin-top: 6rem;
+}
+
+#descripcion {
+  margin-bottom: 6rem;
+}
+
+#catalogo,
+#servicios,
+#tatuadores,
+#contactos {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+#tatuadores {
+  margin-bottom: 10rem;
+}
+
+#contactos {
+  margin-top: 6rem;
+}
+
+/* Rebote para los títulos de secciones */
+#descripcion .subtitulo,
+#catalogo .subtitulo,
+#servicios .subtitulo,
+#tatuadores .subtitulo,
+#contactos .subtitulo {
+  animation: bounce 2.2s infinite;
+}
+
+@keyframes pulse {
+  0% { text-shadow: 0 0 5px red; }
+  50% { text-shadow: 0 0 20px #8B0000; }
+  100% { text-shadow: 0 0 5px red; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Botones de contacto más estilizados como logos */
+.btn-gradient {
+  min-width: 140px;
+  height: 60px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 60px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Botón principal para catálogo */
+.btn-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 34px;
+  background: linear-gradient(135deg, #3b0f0f 0%, #581313 100%);
+  color: #f5e6df;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.text-light-50 {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.artist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.artist-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 25px;
+  padding: 2rem;
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.artist-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
+}
+
+.artist-image-large {
+  max-height: 400px;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.artist-item:hover .artist-image-large {
+  transform: scale(1.02);
+}
+
+.btn-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 35%);
+  opacity: 0.35;
+  pointer-events: none;
+  border-radius: 999px;
+}
+
+.btn-main:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.05);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.36);
+}
+
+.instagram {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 40%), linear-gradient(135deg, #f09433 0%, #dc2743 45%, #bc1888 100%);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.facebook {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.16), transparent 40%), linear-gradient(135deg, #4c70ba 0%, #3b5998 50%, #2d4373 100%);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.mail {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.16), transparent 40%), linear-gradient(135deg, #8B0000 0%, #c30f0f 45%, #ff4040 100%);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.38);
+  filter: brightness(1.08);
+}
+
+/* Imágenes del catálogo con dimensiones iguales */
+.home-page .catalogo img,
+.home-page .catalog-card img,
+.catalog-page .catalogo img,
+.catalog-page .catalog-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+}
+
+.home-page .catalogo img,
+.home-page .catalog-card img {
+  filter: grayscale(100%) brightness(1.05) opacity(0.55);
+}
+
+.home-page .catalogo img:hover,
+.home-page .catalog-card img:hover,
+.home-page .hover-scale:hover {
+  transform: scale(1.05);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+  filter: none;
+  opacity: 1;
+}
+
+.catalog-page .catalogo img,
+.catalog-page .catalog-card img {
+  filter: none;
+}
+
+.catalog-page .catalogo img:hover,
+.catalog-page .catalog-card img:hover,
+.catalog-page .hover-scale:hover {
+  animation: bounce-image 0.6s ease;
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes bounce-image {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-12px) scale(1.04); }
+  70% { transform: translateY(-6px) scale(1.03); }
+  100% { transform: translateY(-10px) scale(1.03); }
+}
+
+/* Estilos para iconos de contacto */
+.contact-link {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease, background 0.22s ease;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+}
+
+.contact-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.contact-link:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #f5f5f5 0%, #d0d0d0 100%);
+}
+
+/* Ajuste responsive: iconos más pequeños en móviles */
+@media (max-width: 576px) {
+  .contact-link {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.btn-gradient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.btn-gradient:hover::after {
+  opacity: 1;
+}
+
+/* Chatbot flotante */
+#chatbot-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: rgba(0,0,0,0.95);
+  color: white;
+  border: 2px solid #8B0000;
+  border-radius: 18px;
+  padding: 18px;
+  display: none;
+  z-index: 1000;
+}
+
+#play-music-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  padding: 12px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  z-index: 1002;
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+#play-music-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.36);
+}
+
+#btnChat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #8B0000, #dc2743);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+#btnChat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+  filter: brightness(1.05);
+}
+
+/* Footer más angosto */
+#contactos {
+  margin-top: 12rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#chatbot-flotante button {
+  background: #8B0000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#chatbot-flotante button:hover {
+  background: red;
+}
+
+/* Oculta los botones/enlaces del header */
+header nav {
+  display: none;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, transform 0.35s ease;
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 18%),
+              radial-gradient(circle at 75% 40%, rgba(255,255,255,0.04), transparent 16%),
+              linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 45%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+header.smoke-header {
+  background: rgba(8, 8, 8, 0.54);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+header.smoke-header::after {
+  opacity: 1;
+}
+
+/* Parallax sections */
+.parallax {
+  position: relative;
+  will-change: transform;
+}
+
+/* Logo en el header */
+.header-logo {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  animation: logo-fade 6s ease-in-out infinite;
+}
+
+@keyframes logo-fade {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
