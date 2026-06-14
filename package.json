@@ -1,0 +1,13 @@
+{
+  "name": "tattoo-art-backend",
+  "version": "1.0.0",
+  "description": "Backend para servir Tattoo & Art y manejar formularios de contacto.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}

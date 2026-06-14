@@ -159,4 +159,82 @@ document.addEventListener("DOMContentLoaded", () => {
       showGreeting();
     });
   }
+
+  const contactForm = document.getElementById("contactForm");
+  const contactStatus = document.getElementById("contactStatus");
+  if (contactForm) {
+    contactForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!contactStatus) return;
+
+      contactStatus.textContent = "Enviando mensaje...";
+      const formData = new FormData(contactForm);
+      const payload = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      };
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+          contactStatus.textContent = result.error || "Error al enviar el mensaje.";
+          return;
+        }
+
+        contactStatus.textContent = "¡Mensaje enviado! Nos contactaremos pronto."
+        contactForm.reset();
+      } catch (error) {
+        contactStatus.textContent = "No se pudo enviar el mensaje. Intenta nuevamente más tarde.";
+      }
+    });
+  }
+
+  const uploadForm = document.getElementById("uploadForm");
+  const uploadStatus = document.getElementById("uploadStatus");
+  const uploadPreview = document.getElementById("uploadPreview");
+
+  if (uploadForm) {
+    uploadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!uploadStatus) return;
+
+      uploadStatus.textContent = "Subiendo archivo...";
+      uploadPreview.innerHTML = "";
+
+      const fileInput = document.getElementById("uploadFile");
+      if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+        uploadStatus.textContent = "Por favor selecciona una imagen.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      try {
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+          uploadStatus.textContent = result.error || "Error al subir el archivo.";
+          return;
+        }
+
+        uploadStatus.textContent = "¡Archivo subido con éxito!";
+        uploadPreview.innerHTML = `<p class="text-light-50">Archivo disponible en: <a href="${result.url}" target="_blank">${result.url}</a></p><img src="${result.url}" class="img-fluid rounded shadow" alt="Vista previa de archivo subido">`;
+        uploadForm.reset();
+      } catch (error) {
+        uploadStatus.textContent = "No se pudo subir el archivo. Intenta nuevamente más tarde.";
+      }
+    });
+  }
 });
