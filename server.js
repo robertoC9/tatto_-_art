@@ -1,71 +1,94 @@
-const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const multer = require("multer");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import multerUpload from "./config/multers.js";
 
+// Crea la app de Express
 const app = express();
+
+// Puerto para Render (usa PORT del entorno si existe)
 const PORT = process.env.PORT || 3000;
+
+
+// __dirname/__filename no existen en ESM; se obtienen con fileURLToPath
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Directorio público donde están index.html, etc.
 const publicDir = path.join(__dirname);
-const uploadDir = path.join(__dirname, "uploads");
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
 
+// Body parser para JSON
 app.use(express.json());
+
+// Body parser para formularios urlencoded
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static(uploadDir));
+
+// Sirve estáticos desde el directorio del proyecto
 app.use(express.static(publicDir));
 
-const storage = multer.diskStorage({
-  destination: uploadDir,
-  filename: (req, file, cb) => {
-    const safeName = `${Date.now()}-${file.originalname.replace(/[^a-zA-Z0-9_.-]/g, "-")}`;
-    cb(null, safeName);
-  },
-});
 
-const fileFilter = (req, file, cb) => {
-  if (/^image\/(jpeg|png|gif|webp|bmp|svg\+xml)$/.test(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error("Solo se permiten imágenes."), false);
-  }
-};
-
-const upload = multer({ storage, fileFilter });
-
+// Endpoint para el formulario de contacto
 app.post("/api/contact", (req, res) => {
   const { name, email, message } = req.body;
 
+
+  // Validación básica: todos los campos son requeridos
   if (!name || !email || !message) {
     return res.status(400).json({ error: "Es necesario enviar nombre, correo y mensaje." });
   }
 
+
+  // Log del mensaje (útil para revisar que el backend recibe bien los datos)
   console.log("Nuevo mensaje de contacto:", { name, email, message });
 
+  // Respuesta JSON para que el frontend muestre “enviado”
   return res.json({ ok: true, message: "Mensaje recibido. Gracias por contactarnos." });
 });
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
+
+// Endpoint para subida de imagen: multer-storage-cloudinary sube a Cloudinary
+app.post("/api/upload", multerUpload.single("file"), (req, res) => {
+  // multer-storage-cloudinary agrega info del upload al objeto req.file
+
   if (!req.file) {
     return res.status(400).json({ error: "No se recibió ningún archivo." });
   }
 
-  return res.json({ ok: true, url: `/uploads/${req.file.filename}` });
+  // Dependiendo de la versión de multer-storage-cloudinary, la URL puede venir en distintos campos.
+  // Mantenemos fallbacks para evitar “conflictos” de contrato entre dependencias.
+  const secureUrl =
+    req.file?.path ||
+    req.file?.secure_url ||
+    req.file?.secureUrl ||
+    req.file?.url;
+
+
+  // El frontend usa esta url para mostrar la imagen y el enlace
+  return res.json({ ok: true, url: secureUrl });
 });
 
+
+// Fallback: cualquier ruta desconocida sirve el index.html
 app.get("*", (req, res) => {
   res.sendFile(path.join(publicDir, "index.html"));
 });
 
+
+// Manejo de errores (middleware de Express)
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
+
+  // Respuesta JSON de error para que el frontend reciba un mensaje
   res.status(400).json({ error: err.message || "Ocurrió un error en el servidor." });
 });
 
+
+// Arranca el servidor
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });
+
+
