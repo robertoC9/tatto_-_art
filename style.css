@@ -1,116 +1,120 @@
 /* Fondo de video */
+/* Estilos base para body/html */
 body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
+  margin: 0; /* elimina margen por defecto */
+  padding: 0; /* elimina padding por defecto */
+  height: 100%; /* ocupa toda la altura */
+  font-family: 'Segoe UI', sans-serif; /* tipografía */
+  color: white; /* color de texto */
 }
 
 body {
-  padding-top: 100px;
+  padding-top: 100px; /* espacio para el header fijo */
 }
 
 video#bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  z-index: -1;
+  position: fixed; /* lo fija respecto a la ventana */
+  top: 0; left: 0; /* anclaje a la esquina superior izquierda */
+  width: 100%; height: 100%; /* tamaño pantalla completa */
+  object-fit: cover; /* recorta manteniendo proporción */
+  z-index: -1; /* va detrás del contenido */
 }
 
 .background-carousel {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
+  position: fixed; /* carrusel como fondo */
+  inset: 0; /* top/right/bottom/left = 0 */
+  z-index: -2; /* más atrás que el video */
+  overflow: hidden; /* oculta lo que se salga */
 }
 
 .background-carousel .carousel-inner,
 .background-carousel .carousel-item {
-  height: 100%;
+  height: 100%; /* ocupa altura completa */
 }
 
 .background-carousel video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: auto;
-  height: auto;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  transform: translate(-50%, -50%);
-  opacity: 0.95;
+  position: absolute; /* dentro del contenedor relativo */
+  top: 50%; left: 50%; /* centro */
+  width: auto; /* ajusta ancho */
+  height: auto; /* ajusta alto */
+  min-width: 100%; /* asegura cobertura */
+  min-height: 100%; /* asegura cobertura */
+  object-fit: cover; /* recorte para cubrir */
+  transform: translate(-50%, -50%); /* centrar con transform */
+  opacity: 0.95; /* leve transparencia */
 }
 
 .background-carousel .carousel-indicators {
-  display: none;
+  display: none; /* oculta indicadores */
 }
 
 .background-carousel .carousel-control-prev,
 .background-carousel .carousel-control-next {
-  display: none;
+  display: none; /* oculta controles del carrusel */
 }
 
-/* Títulos animados */
+/* =====================
+   Títulos animados
+   ===================== */
 .titulo, .subtitulo {
-  color: #5f5757; /* rojo sangre */
-  animation: pulse 2s infinite;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-  text-align: center;
+  color: #5f5757; /* color del texto */
+  animation: pulse 2s infinite; /* animación repetida */
+  text-transform: uppercase; /* a mayúsculas */
+  letter-spacing: 2px; /* separa letras */
+  position: relative; /* necesario para pseudo-elementos */
+  text-align: center; /* centra texto */
 }
 
 .subtitulo::before {
-  content: "";
-  display: block;
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 1rem;
-  background-image: url("sticker.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.5;
+  content: ""; /* crea pseudo-elemento */
+  display: block; /* lo convierte en bloque */
+  width: 70px; /* ancho del sticker */
+  height: 70px; /* alto del sticker */
+  margin: 0 auto 1rem; /* centra y agrega margen inferior */
+  background-image: url("sticker.png"); /* imagen de sticker */
+  background-size: contain; /* conserva proporción */
+  background-repeat: no-repeat; /* sin repetición */
+  background-position: center; /* centra la imagen */
+  opacity: 0.5; /* transparencia */
 }
 
 #contactos .subtitulo::before {
-  content: none;
-  display: none;
+  content: none; /* quita contenido del pseudo-elemento */
+  display: none; /* oculta el sticker en contactos */
 }
 
-/* Separación entre secciones */
+/* =====================
+   Separación entre secciones
+   ===================== */
 section {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  margin-top: 4rem; /* espacio superior */
+  margin-bottom: 4rem; /* espacio inferior */
+  padding-top: 2rem; /* relleno superior */
+  padding-bottom: 2rem; /* relleno inferior */
 }
 
 section + section {
-  margin-top: 6rem;
+  margin-top: 6rem; /* aumenta gap entre secciones consecutivas */
 }
 
 #descripcion {
-  margin-bottom: 6rem;
+  margin-bottom: 6rem; /* ajuste extra para descripción */
 }
 
 #catalogo,
 #servicios,
 #tatuadores,
 #contactos {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 3rem; /* padding superior en secciones principales */
+  padding-bottom: 3rem; /* padding inferior en secciones principales */
 }
 
 #tatuadores {
-  margin-bottom: 10rem;
+  margin-bottom: 10rem; /* más espacio al final */
 }
 
 #contactos {
-  margin-top: 6rem;
+  margin-top: 6rem; /* eleva sección de contactos */
 }
 
 /* Rebote para los títulos de secciones */
@@ -119,130 +123,141 @@ section + section {
 #servicios .subtitulo,
 #tatuadores .subtitulo,
 #contactos .subtitulo {
-  animation: bounce 2.2s infinite;
+  animation: bounce 2.2s infinite; /* animación bounce infinita */
 }
 
+/* =====================
+   Keyframes: pulse
+   ===================== */
 @keyframes pulse {
-  0% { text-shadow: 0 0 5px red; }
-  50% { text-shadow: 0 0 20px #8B0000; }
-  100% { text-shadow: 0 0 5px red; }
+  0% { text-shadow: 0 0 5px red; } /* sombra inicial */
+  50% { text-shadow: 0 0 20px #8B0000; } /* sombra más intensa */
+  100% { text-shadow: 0 0 5px red; } /* vuelve al inicio */
 }
 
+/* =====================
+   Keyframes: bounce
+   ===================== */
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
+    transform: translateY(0); /* posición neutra */
   }
   40% {
-    transform: translateY(-8px);
+    transform: translateY(-8px); /* sube */
   }
   60% {
-    transform: translateY(-4px);
+    transform: translateY(-4px); /* baja un poco */
   }
 }
 
-/* Botones de contacto más estilizados como logos */
+/* =====================
+   Botones (logos + estilos)
+   ===================== */
 .btn-gradient {
-  min-width: 140px;
-  height: 60px;
-  padding: 0 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border-radius: 60px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.28);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-  position: relative;
-  overflow: hidden;
+  min-width: 140px; /* ancho mínimo */
+  height: 60px; /* alto */
+  padding: 0 18px; /* padding lateral */
+  display: inline-flex; /* inline + flex */
+  align-items: center; /* centra vertical */
+  justify-content: center; /* centra horizontal */
+  gap: 10px; /* espacio entre íconos/texto */
+  border-radius: 60px; /* pastilla redondeada */
+  font-weight: 700; /* negrita */
+  text-transform: uppercase; /* mayúsculas */
+  letter-spacing: 1px; /* espaciado */
+  color: #fff; /* texto blanco */
+  border: 2px solid rgba(255, 255, 255, 0.16); /* borde translúcido */
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.28); /* sombra */
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease, border-color 0.25s ease, background 0.25s ease; /* animaciones suaves */
+  position: relative; /* base para ::after/::before */
+  overflow: hidden; /* recorta overlays */
 }
 
 /* Botón principal para catálogo */
 .btn-main {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 14px 34px;
-  background: linear-gradient(135deg, #3b0f0f 0%, #581313 100%);
-  color: #f5e6df;
-  border-radius: 999px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
-  transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+  display: inline-flex; /* flex inline */
+  align-items: center; /* centra vertical */
+  justify-content: center; /* centra horizontal */
+  gap: 12px; /* separa contenido */
+  padding: 14px 34px; /* tamaño */
+  background: linear-gradient(135deg, #3b0f0f 0%, #581313 100%); /* degradado */
+  color: #f5e6df; /* color texto */
+  border-radius: 999px; /* redondeado extremo */
+  font-weight: 700; /* negrita */
+  text-transform: uppercase; /* mayúsculas */
+  letter-spacing: 1px; /* espaciado */
+  border: 1px solid rgba(255,255,255,0.15); /* borde sutil */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28); /* sombra */
+  transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease; /* transiciones */
 }
 
 .feature-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  background: rgba(255, 255, 255, 0.08); /* transparente */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* borde */
+  border-radius: 20px; /* esquinas redondeadas */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); /* borde interno */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* animación */
 }
 
 .feature-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-6px); /* levanta */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* sombra más grande */
+  background: rgba(255, 255, 255, 0.12); /* más claro */
 }
 
 .text-light-50 {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75); /* texto claro */
 }
 
+/* Lista de artistas */
 .artist-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+  display: flex; /* usa flex */
+  flex-direction: column; /* en columna */
+  gap: 3rem; /* separación */
 }
 
 .artist-item {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 25px;
-  padding: 2rem;
-  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  background: rgba(255, 255, 255, 0.05); /* transparente base */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* borde */
+  border-radius: 25px; /* redondeado */
+  padding: 2rem; /* espacio interno */
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease; /* animación */
 }
 
 .artist-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.08); /* más claro */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* sombra */
+  transform: translateY(-4px); /* levanta */
 }
 
 .artist-image-large {
-  max-height: 400px;
-  object-fit: cover;
-  transition: transform 0.35s ease;
+  max-height: 400px; /* alto máximo */
+  object-fit: cover; /* recorta manteniendo */
+  transition: transform 0.35s ease; /* animación */
 }
 
 .artist-item:hover .artist-image-large {
-  transform: scale(1.02);
+  transform: scale(1.02); /* zoom leve */
 }
 
+/* Brillo dentro del botón principal */
 .btn-main::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 35%);
-  opacity: 0.35;
-  pointer-events: none;
-  border-radius: 999px;
+  content: ""; /* pseudo-elemento */
+  position: absolute; /* posiciona en el botón */
+  inset: 0; /* ocupa todo */
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 35%); /* degradado radial */
+  opacity: 0.35; /* transparencia del brillo */
+  pointer-events: none; /* no bloquea clicks */
+  border-radius: 999px; /* misma forma */
 }
 
 .btn-main:hover {
-  transform: translateY(-3px);
-  filter: brightness(1.05);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.36);
+  transform: translateY(-3px); /* levanta */
+  filter: brightness(1.05); /* ilumina */
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.36); /* sombra */
 }
 
+/* Degradados sociales */
 .instagram {
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 40%), linear-gradient(135deg, #f09433 0%, #dc2743 45%, #bc1888 100%);
   border-color: rgba(255, 255, 255, 0.28);
@@ -259,47 +274,47 @@ section + section {
 }
 
 .btn-gradient:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.38);
-  filter: brightness(1.08);
+  transform: translateY(-2px) scale(1.04); /* levanta y escala */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.38); /* sombra */
+  filter: brightness(1.08); /* más brillo */
 }
 
-/* Imágenes del catálogo con dimensiones iguales */
+/* Imágenes del catálogo */
 .home-page .catalogo img,
 .home-page .catalog-card img,
 .catalog-page .catalogo img,
 .catalog-page .catalog-card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+  width: 100%; /* ancho completo */
+  height: 280px; /* alto fijo */
+  object-fit: cover; /* recorte */
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease; /* animación hover */
 }
 
 .home-page .catalogo img,
 .home-page .catalog-card img {
-  filter: grayscale(100%) brightness(1.05) opacity(0.55);
+  filter: grayscale(100%) brightness(1.05) opacity(0.55); /* estilo tenue */
 }
 
 .home-page .catalogo img:hover,
 .home-page .catalog-card img:hover,
 .home-page .hover-scale:hover {
-  transform: scale(1.05);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
-  filter: none;
-  opacity: 1;
+  transform: scale(1.05); /* zoom */
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35); /* sombra */
+  filter: none; /* quita filtro */
+  opacity: 1; /* opacidad completa */
 }
 
 .catalog-page .catalogo img,
 .catalog-page .catalog-card img {
-  filter: none;
+  filter: none; /* sin filtro en catálogo */
 }
 
 .catalog-page .catalogo img:hover,
 .catalog-page .catalog-card img:hover,
 .catalog-page .hover-scale:hover {
-  animation: bounce-image 0.6s ease;
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4);
+  animation: bounce-image 0.6s ease; /* rebote */
+  transform: translateY(-10px) scale(1.03); /* levanta y escala */
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4); /* sombra */
 }
 
 @keyframes bounce-image {
@@ -309,90 +324,68 @@ section + section {
   100% { transform: translateY(-10px) scale(1.03); }
 }
 
-/* Estilos para iconos de contacto */
+/* Iconos de contacto */
 .contact-link {
-  display: inline-block;
-  width: 80px;
+  display: inline-block; /* inline con caja */
+  width: 80px; /* tamaño */
   height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease, background 0.22s ease;
-  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  border-radius: 50%; /* círculo */
+  overflow: hidden; /* recorta imagen */
+  border: 2px solid rgba(0, 0, 0, 0.5); /* borde */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4); /* sombra */
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease, background 0.22s ease; /* animación */
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%); /* fondo */
 }
 
 .contact-icon {
-  width: 100%;
+  width: 100%; /* rellena */
   height: 100%;
-  object-fit: cover;
-  display: block;
+  object-fit: cover; /* recorte */
+  display: block; /* evita espacios */
 }
 
 .contact-link:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-  background: linear-gradient(135deg, #f5f5f5 0%, #d0d0d0 100%);
+  transform: translateY(-4px) scale(1.05); /* levanta */
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5); /* sombra */
+  background: linear-gradient(135deg, #f5f5f5 0%, #d0d0d0 100%); /* cambia fondo */
 }
 
-/* Ajuste responsive: iconos más pequeños en móviles */
+/* Responsive: iconos en móviles */
 @media (max-width: 576px) {
   .contact-link {
-    width: 70px;
+    width: 70px; /* reduce tamaño */
     height: 70px;
   }
 
-  /* Header fijo: evitar que el contenido quede tapado */
-  body {
-    padding-top: 92px;
-  }
+  body { padding-top: 92px; /* ajusta header en móvil */ }
+  .header-logo { height: 64px; /* logo más chico */ }
 
-  .header-logo {
-    height: 64px;
-  }
-
-  /* Sticker de subtítulos más pequeño */
   .subtitulo::before {
-    width: 52px;
+    width: 52px; /* sticker más pequeño */
     height: 52px;
-    margin: 0 auto 0.75rem;
+    margin: 0 auto 0.75rem; /* margen reducido */
   }
 
-  /* Secciones más compactas */
   section {
-    margin-top: 2.75rem;
+    margin-top: 2.75rem; /* menos espacio */
     margin-bottom: 2.75rem;
-    padding-top: 1.25rem;
+    padding-top: 1.25rem; /* menos padding */
     padding-bottom: 1.25rem;
   }
 
-  section + section {
-    margin-top: 4rem;
-  }
+  section + section { margin-top: 4rem; /* gap entre secciones */ }
+  #descripcion { margin-bottom: 4.5rem; }
+  #tatuadores { margin-bottom: 6rem; }
+  #contactos { margin-top: 4rem; }
 
-  #descripcion {
-    margin-bottom: 4.5rem;
-  }
+  .artist-image-large { max-height: 280px; /* limita altura */ }
 
-  #tatuadores {
-    margin-bottom: 6rem;
-  }
-
-  #contactos {
-    margin-top: 4rem;
-  }
-
-  /* Imágenes: evitar alturas exageradas */
-  .artist-image-large {
-    max-height: 280px;
-  }
-
-  /* Chatbot y botón música menos invasivos */
+  /* Ajustes chatbot / música */
   #chatbot-flotante {
-    width: min(92vw, 340px);
-    right: 12px;
-    bottom: 84px;
-    padding: 14px;
+    width: min(92vw, 340px); /* ancho responsive */
+    right: 12px; /* se acerca al borde */
+    bottom: 84px; /* más arriba para dejar espacio al botón música */
+    padding: 14px; /* padding reducido */
   }
 
   #play-music-btn {
@@ -402,40 +395,25 @@ section + section {
     font-size: 0.95rem;
   }
 
-  #btnChat {
-    right: 12px;
-    bottom: 12px;
-  }
+  #btnChat { right: 12px; bottom: 12px; }
 
-  /* Reducir movimiento si el usuario lo solicita */
+  /* Reduce movimiento si el usuario lo solicita */
   @media (prefers-reduced-motion: reduce) {
-    .titulo, .subtitulo {
-      animation: none !important;
-    }
+    .titulo, .subtitulo { animation: none !important; }
     #descripcion .subtitulo,
     #catalogo .subtitulo,
     #servicios .subtitulo,
     #tatuadores .subtitulo,
-    #contactos .subtitulo {
-      animation: none !important;
-    }
+    #contactos .subtitulo { animation: none !important; }
   }
 }
 
 /* Tablet */
 @media (min-width: 577px) and (max-width: 992px) {
-  body {
-    padding-top: 96px;
-  }
+  body { padding-top: 96px; /* header en tablet */ }
+  .header-logo { height: 76px; }
 
-  .header-logo {
-    height: 76px;
-  }
-
-  .subtitulo::before {
-    width: 62px;
-    height: 62px;
-  }
+  .subtitulo::before { width: 62px; height: 62px; }
 
   section {
     margin-top: 3.25rem;
@@ -444,21 +422,11 @@ section + section {
     padding-bottom: 1.5rem;
   }
 
-  #descripcion {
-    margin-bottom: 5.25rem;
-  }
+  #descripcion { margin-bottom: 5.25rem; }
+  #tatuadores { margin-bottom: 8rem; }
+  #contactos { margin-top: 5rem; }
 
-  #tatuadores {
-    margin-bottom: 8rem;
-  }
-
-  #contactos {
-    margin-top: 5rem;
-  }
-
-  .artist-image-large {
-    max-height: 340px;
-  }
+  .artist-image-large { max-height: 340px; }
 
   #chatbot-flotante {
     width: min(82vw, 360px);
@@ -467,199 +435,181 @@ section + section {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .titulo, .subtitulo {
-      animation: none !important;
-    }
+    .titulo, .subtitulo { animation: none !important; }
     #descripcion .subtitulo,
     #catalogo .subtitulo,
     #servicios .subtitulo,
     #tatuadores .subtitulo,
-    #contactos .subtitulo {
-      animation: none !important;
-    }
+    #contactos .subtitulo { animation: none !important; }
   }
 }
 
 /* Desktop */
 @media (min-width: 993px) {
-  .header-logo {
-    height: 90px;
-  }
+  .header-logo { height: 90px; /* logo más grande */ }
 }
 
-/* Menú de navegación: no ocultarlo en desktop/tablet */
+/* Menú visible en desktop/tablet */
 @media (min-width: 577px) {
-  header nav {
-    display: block;
-  }
+  header nav { display: block; /* muestra nav */ }
 }
 
-
+/* Overlay extra en botones */
 .btn-gradient::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.08);
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  content: ""; /* pseudo-elemento */
+  position: absolute; /* relativo al botón */
+  inset: 0; /* cubre todo */
+  background: rgba(255, 255, 255, 0.08); /* brillo */
+  opacity: 0; /* oculto */
+  transition: opacity 0.25s ease; /* fade */
 }
 
-.btn-gradient:hover::after {
-  opacity: 1;
-}
+.btn-gradient:hover::after { opacity: 1; /* muestra brillo */ }
 
-/* Chatbot flotante */
+/* =====================
+   Chatbot flotante (base)
+   ===================== */
 #chatbot-flotante {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 320px;
-  background: rgba(0,0,0,0.95);
-  color: white;
-  border: 2px solid #8B0000;
-  border-radius: 18px;
-  padding: 18px;
-  display: none;
-  z-index: 1000;
+  position: fixed; /* fijo */
+  bottom: 20px; right: 20px; /* esquina */
+  width: 320px; /* tamaño */
+  background: rgba(0,0,0,0.95); /* fondo */
+  color: white; /* texto */
+  border: 2px solid #8B0000; /* borde */
+  border-radius: 18px; /* redondeado */
+  padding: 18px; /* espacio interno */
+  display: none; /* oculto: lo muestra JS */
+  z-index: 1000; /* sobre todo */
 }
 
 #play-music-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  padding: 12px 18px;
-  border-radius: 999px;
-  cursor: pointer;
-  z-index: 1002;
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(10px);
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  position: fixed; /* fijo */
+  bottom: 20px; left: 20px; /* esquina */
+  background: rgba(255, 255, 255, 0.12); /* fondo */
+  color: #fff; /* texto */
+  border: 1px solid rgba(255, 255, 255, 0.24); /* borde */
+  padding: 12px 18px; /* tamaño */
+  border-radius: 999px; /* pastilla */
+  cursor: pointer; /* cursor pointer */
+  z-index: 1002; /* sobre chatbot */
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.28); /* sombra */
+  backdrop-filter: blur(10px); /* efecto glass */
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; /* animaciones */
 }
 
 #play-music-btn:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.36);
+  transform: translateY(-2px); /* levanta */
+  background: rgba(255, 255, 255, 0.18); /* fondo más claro */
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.36); /* sombra más grande */
 }
 
 #btnChat {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, #8B0000, #dc2743);
+  position: fixed; /* fijo */
+  bottom: 20px; right: 20px; /* esquina */
+  width: 56px; height: 56px; /* tamaño */
+  background: linear-gradient(135deg, #8B0000, #dc2743); /* degradado */
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0;
-  border-radius: 50%;
-  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* borde */
+  padding: 0; /* sin padding */
+  border-radius: 50%; /* círculo */
+  cursor: pointer; /* cursor */
   z-index: 1001;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  font-size: 1.5rem; /* tamaño ícono */
+  display: flex; /* flex para centrar */
+  align-items: center; /* vertical */
+  justify-content: center; /* horizontal */
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4); /* sombra */
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; /* animación */
 }
 
 #btnChat:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
-  filter: brightness(1.05);
+  transform: translateY(-3px); /* levanta */
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45); /* sombra */
+  filter: brightness(1.05); /* brillo */
 }
 
 /* Footer más angosto */
 #contactos {
-  margin-top: 12rem;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 12rem; /* espacio superior */
+  padding-top: 4rem; /* padding arriba */
+  padding-bottom: 4rem; /* padding abajo */
+  max-width: 900px; /* ancho máximo */
+  margin-left: auto; /* centrado */
+  margin-right: auto; /* centrado */
 }
 
 #chatbot-flotante button {
-  background: #8B0000;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
+  background: #8B0000; /* fondo botones chatbot */
+  color: white; /* texto */
+  border: none; /* sin borde */
+  padding: 8px 12px; /* tamaño */
+  margin-top: 10px; /* separación */
+  cursor: pointer; /* cursor */
+  border-radius: 5px; /* redondeado */
 }
 
 #chatbot-flotante button:hover {
-  background: red;
+  background: red; /* hover */
 }
 
-/* Oculta los botones/enlaces del header (base mobile). Se re-habilita en breakpoints >=577px */
-header nav {
-  display: none;
-}
-
+/* Oculta nav en mobile (base) */
+header nav { display: none; }
 
 header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, transform 0.35s ease;
-  background: rgba(10, 10, 10, 0.72);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: fixed; /* fijo */
+  width: 100%; /* ancho total */
+  top: 0; left: 0; /* arriba */
+  z-index: 999; /* arriba */
+  transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, transform 0.35s ease; /* animación */
+  background: rgba(10, 10, 10, 0.72); /* fondo */
+  backdrop-filter: blur(8px); /* glass */
+  border-bottom: 1px solid rgba(255,255,255,0.08); /* borde */
 }
 
 header::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  content: ""; /* pseudo-elemento overlay */
+  position: absolute; /* relativo */
+  inset: 0; /* cubre header */
+  pointer-events: none; /* no bloquear clicks */
   background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 18%),
               radial-gradient(circle at 75% 40%, rgba(255,255,255,0.04), transparent 16%),
               linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 45%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  opacity: 0; /* oculto */
+  transition: opacity 0.35s ease; /* fade */
 }
 
 header.smoke-header {
-  background: rgba(8, 8, 8, 0.54);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-  transform: translateY(-1px);
+  background: rgba(8, 8, 8, 0.54); /* fondo cuando hay scroll */
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); /* sombra */
+  transform: translateY(-1px); /* pequeño ajuste */
 }
 
 header.smoke-header::after {
-  opacity: 1;
+  opacity: 1; /* muestra overlay */
 }
 
 /* Parallax sections */
 .parallax {
-  position: relative;
-  will-change: transform;
+  position: relative; /* referencia para transform */
+  will-change: transform; /* optimiza renders */
 }
 
 /* Logo en el header */
 .header-logo {
-  height: 90px;
-  width: auto;
-  object-fit: contain;
-  animation: logo-fade 6s ease-in-out infinite;
+  height: 90px; /* tamaño */
+  width: auto; /* auto ancho */
+  object-fit: contain; /* no recorta */
+  animation: logo-fade 6s ease-in-out infinite; /* animación */
 }
 
 @keyframes logo-fade {
   0%, 100% {
-    opacity: 0;
-    transform: scale(0.95);
+    opacity: 0; /* fade out */
+    transform: scale(0.95); /* reduce */
   }
   50% {
-    opacity: 1;
-    transform: scale(1);
+    opacity: 1; /* fade in */
+    transform: scale(1); /* tamaño normal */
   }
 }
-
-
 

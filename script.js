@@ -1,284 +1,314 @@
 // Espera a que el DOM esté completamente cargado antes de ejecutar el script
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Crea el botón flotante del chatbot
-  const btn = document.createElement("button");
-  btn.id = "btnChat";
-  btn.innerText = "💬";
-  document.body.appendChild(btn);
+  // -----------------------------
+  // CREACIÓN DEL BOTÓN FLOTANTE
+  // -----------------------------
 
-  // Obtiene elementos del DOM necesarios
-  const chatbotDiv = document.getElementById("chatbot-flotante");
-  const bgAudio = document.getElementById("bg-audio");
-  const playMusicBtn = document.getElementById("play-music-btn");
+  const btn = document.createElement("button"); // Crea un botón dinámico
+  btn.id = "btnChat";                           // Asigna ID al botón
+  btn.innerText = "💬";                         // Agrega emoji como texto
+  document.body.appendChild(btn);               // Inserta el botón en el body
 
-  // Inserta contenido HTML dentro del chatbot
-  chatbotDiv.innerHTML = `
+  // -----------------------------
+  // OBTENER ELEMENTOS DEL DOM
+  // -----------------------------
+
+  const chatbotDiv = document.getElementById("chatbot-flotante"); // Contenedor del chatbot
+  const bgAudio = document.getElementById("bg-audio");            // Audio de fondo
+  const playMusicBtn = document.getElementById("play-music-btn"); // Botón para iniciar música
+
+  // -----------------------------
+  // CONTENIDO DEL CHATBOT
+  // -----------------------------
+
+  chatbotDiv.innerHTML = ` 
     <h5 style="color:#ff4444; margin-bottom: 0.75rem;">Tattoo & Art Bot</h5>
     <p>Hola, soy tu asistente. ¿Quieres agendar tu hora por WhatsApp?</p>
     <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
       <button id="btnAgendar" class="btn btn-sm btn-success">Abrir WhatsApp</button>
       <button id="btnCerrar" class="btn btn-sm btn-outline-light">Cerrar</button>
     </div>
-  `;
+  `; // Inserta el HTML del chatbot
 
-  // Función para hacer fade-in y fade-out del audio
-  const fadeAudio = (audio, fadeTime, targetVolume, callback) => {
-    const steps = 30; // cantidad de pasos del fade
-    const interval = fadeTime / steps; // tiempo entre pasos
-    const volumeStep = (targetVolume - audio.volume) / steps; // cuánto cambia el volumen por paso
-    let currentStep = 0;
+  // -----------------------------
+  // FUNCIÓN PARA FADE-IN / FADE-OUT DEL AUDIO
+  // -----------------------------
 
-    const fadeInterval = setInterval(() => {
-      currentStep += 1;
-      audio.volume = Math.min(1, Math.max(0, audio.volume + volumeStep));
+  const fadeAudio = (audio, fadeTime, targetVolume, callback) => { // Función para suavizar volumen
+    const steps = 30;                                              // Cantidad de pasos del fade
+    const interval = fadeTime / steps;                             // Tiempo entre pasos
+    const volumeStep = (targetVolume - audio.volume) / steps;      // Cambio por paso
+    let currentStep = 0;                                           // Contador de pasos
 
-      if (currentStep >= steps) {
-        clearInterval(fadeInterval);
-        if (callback) callback(); // ejecuta callback si existe
+    const fadeInterval = setInterval(() => {                       // Intervalo repetitivo
+      currentStep += 1;                                            // Incrementa paso
+      audio.volume = Math.min(1, Math.max(0, audio.volume + volumeStep)); // Ajusta volumen
+
+      if (currentStep >= steps) {                                  // Si terminó el fade
+        clearInterval(fadeInterval);                               // Detiene intervalo
+        if (callback) callback();                                  // Ejecuta callback si existe
       }
-    }, interval);
+    }, interval);                                                  // Tiempo entre pasos
   };
 
-  // Evita que el audio se inicie más de una vez
-  let bgAudioStarted = false;
+  // -----------------------------
+  // CONTROL PARA EVITAR DOBLE AUDIO
+  // -----------------------------
 
-  // Oculta el botón de música si ya no es necesario
-  const hideMusicButton = () => {
-    if (playMusicBtn) {
-      playMusicBtn.style.display = "none";
-    }
+  let bgAudioStarted = false; // Evita que el audio se inicie más de una vez
+
+  // -----------------------------
+  // OCULTAR BOTÓN DE MÚSICA
+  // -----------------------------
+
+  const hideMusicButton = () => {                 // Función para ocultar botón
+    if (playMusicBtn) playMusicBtn.style.display = "none"; // Oculta si existe
   };
 
-  // Función principal para iniciar el audio de fondo
-  const startBackgroundAudio = () => {
-    if (!bgAudio || bgAudioStarted) return;
+  // -----------------------------
+  // INICIAR AUDIO DE FONDO
+  // -----------------------------
 
-    bgAudio.volume = 0;
-    const playPromise = bgAudio.play();
+  const startBackgroundAudio = () => {            // Función principal del audio
+    if (!bgAudio || bgAudioStarted) return;       // Evita doble inicio
 
-    const fadeStart = () => {
-      bgAudioStarted = true;
-      fadeAudio(bgAudio, 2500, 0.28); // fade-in
+    bgAudio.volume = 0;                           // Comienza en volumen 0
+    const playPromise = bgAudio.play();           // Intenta reproducir audio
 
-      // Después de 27 segundos, fade-out y detiene el audio
-      setTimeout(() => {
-        fadeAudio(bgAudio, 2500, 0, () => {
-          bgAudio.pause();
-          bgAudio.currentTime = 0;
+    const fadeStart = () => {                     // Función que inicia fade-in
+      bgAudioStarted = true;                      // Marca que ya inició
+      fadeAudio(bgAudio, 2500, 0.28);             // Fade-in de 2.5 segundos
+
+      setTimeout(() => {                          // Después de 27 segundos...
+        fadeAudio(bgAudio, 2500, 0, () => {       // Fade-out
+          bgAudio.pause();                        // Pausa audio
+          bgAudio.currentTime = 0;                // Reinicia audio
         });
-      }, 27000);
+      }, 27000);                                  // Tiempo antes del fade-out
 
-      hideMusicButton();
+      hideMusicButton();                          // Oculta botón de música
     };
 
-    // Manejo de bloqueo de reproducción automática
-    if (playPromise !== undefined) {
-      playPromise.then(fadeStart).catch(() => {
-        if (playMusicBtn) {
-          playMusicBtn.style.display = "block";
-          playMusicBtn.innerText = "Presiona para iniciar la música";
+    if (playPromise !== undefined) {              // Si play() devuelve promesa
+      playPromise.then(fadeStart).catch(() => {   // Si se pudo reproducir
+        if (playMusicBtn) {                       // Si no se pudo reproducir...
+          playMusicBtn.style.display = "block";   // Muestra botón
+          playMusicBtn.innerText = "Presiona para iniciar la música"; // Cambia texto
         }
       });
     } else {
-      fadeStart();
+      fadeStart();                                // Si no hay promesa, inicia fade
     }
   };
 
-  // Eventos que activan la música
-  if (playMusicBtn) {
-    playMusicBtn.addEventListener("click", startBackgroundAudio);
-  }
-  document.addEventListener("click", startBackgroundAudio, { once: true });
-  document.addEventListener("keydown", startBackgroundAudio, { once: true });
-  document.addEventListener("touchstart", startBackgroundAudio, { once: true });
+  // -----------------------------
+  // EVENTOS QUE ACTIVAN EL AUDIO
+  // -----------------------------
 
-  // Intenta iniciar el audio automáticamente
-  startBackgroundAudio();
+  if (playMusicBtn) playMusicBtn.addEventListener("click", startBackgroundAudio); // Botón manual
+  document.addEventListener("click", startBackgroundAudio, { once: true });       // Primer clic
+  document.addEventListener("keydown", startBackgroundAudio, { once: true });     // Primera tecla
+  document.addEventListener("touchstart", startBackgroundAudio, { once: true });  // Primer toque
 
-  // Parallax: selecciona elementos con clase .parallax
-  const parallaxItems = document.querySelectorAll(".parallax");
+  startBackgroundAudio(); // Intenta iniciar automáticamente
 
-  const applyParallax = () => {
-    const scrollTop = window.scrollY;
+  // -----------------------------
+  // EFECTO PARALLAX
+  // -----------------------------
 
-    parallaxItems.forEach((item, index) => {
-      const speed = 0.05 + index * 0.02; // velocidad distinta por elemento
-      const offset = (scrollTop - item.offsetTop) * speed;
-      item.style.transform = `translateY(${offset}px)`; // mueve el elemento
+  const parallaxItems = document.querySelectorAll(".parallax"); // Selecciona elementos parallax
+
+  const applyParallax = () => {                                 // Función parallax
+    const scrollTop = window.scrollY;                           // Obtiene scroll
+
+    parallaxItems.forEach((item, index) => {                    // Recorre elementos
+      const speed = 0.05 + index * 0.02;                        // Velocidad distinta
+      const offset = (scrollTop - item.offsetTop) * speed;      // Calcula desplazamiento
+      item.style.transform = `translateY(${offset}px)`;         // Aplica movimiento
     });
   };
 
-  // Header con efecto de humo
-  const header = document.querySelector("header");
+  // -----------------------------
+  // EFECTO DE HUMO EN EL HEADER
+  // -----------------------------
 
-  const applyScrollEffects = () => {
-    applyParallax();
+  const header = document.querySelector("header"); // Obtiene header
 
-    if (!header) return;
+  const applyScrollEffects = () => {               // Función de efectos de scroll
+    applyParallax();                               // Aplica parallax
 
-    const scrollTop = window.scrollY;
+    if (!header) return;                           // Si no hay header, termina
 
-    if (scrollTop > 50) {
-      header.classList.add("smoke-header");
-      const intensity = Math.min(1, (scrollTop - 50) / 250);
-      header.style.setProperty("--smoke-opacity", intensity);
+    const scrollTop = window.scrollY;              // Obtiene scroll
+
+    if (scrollTop > 50) {                          // Si bajó más de 50px
+      header.classList.add("smoke-header");        // Activa humo
+      const intensity = Math.min(1, (scrollTop - 50) / 250); // Calcula opacidad
+      header.style.setProperty("--smoke-opacity", intensity); // Aplica opacidad
     } else {
-      header.classList.remove("smoke-header");
+      header.classList.remove("smoke-header");     // Quita humo si vuelve arriba
     }
   };
 
-  // Aplica efectos al hacer scroll
-  window.addEventListener("scroll", applyScrollEffects);
-  applyScrollEffects();
+  window.addEventListener("scroll", applyScrollEffects); // Aplica efectos al hacer scroll
+  applyScrollEffects();                                  // Aplica efectos al cargar
 
-  // Función para mostrar saludo inicial del chatbot
-  const showGreeting = () => {
-    chatbotDiv.style.display = "block";
-    btn.style.display = "none";
+  // -----------------------------
+  // MOSTRAR SALUDO DEL CHATBOT
+  // -----------------------------
 
-    const greetingText = "¡Hola! 👋";
-    const originalContent = chatbotDiv.innerHTML;
+  const showGreeting = () => {                     // Función para mostrar saludo
+    chatbotDiv.style.display = "block";            // Muestra chatbot
+    btn.style.display = "none";                    // Oculta botón flotante
 
-    chatbotDiv.innerHTML = `
+    const greetingText = "¡Hola! 👋";              // Texto del saludo
+    const originalContent = chatbotDiv.innerHTML;  // Guarda contenido original
+
+    chatbotDiv.innerHTML = `                       // Muestra saludo temporal
       <h5 style="color:#ff4444; margin-bottom: 0.75rem;">Tattoo & Art Bot</h5>
       <p style="font-size: 1.2rem; font-weight: 600;">${greetingText}</p>
     `;
 
-    // Restaura contenido después de 1.5 segundos
-    setTimeout(() => {
-      chatbotDiv.innerHTML = originalContent;
+    setTimeout(() => {                             // Espera 1.5 segundos
+      chatbotDiv.innerHTML = originalContent;      // Restaura contenido
 
-      const closeBtn = document.getElementById("btnCerrar");
-      const agendBtn = document.getElementById("btnAgendar");
+      const closeBtn = document.getElementById("btnCerrar"); // Botón cerrar
+      const agendBtn = document.getElementById("btnAgendar"); // Botón agendar
 
-      // Botón cerrar
-      if (closeBtn) {
-        closeBtn.addEventListener("click", () => {
-          chatbotDiv.style.display = "none";
-          btn.style.display = "flex";
-          btn.style.alignItems = "center";
-          btn.style.justifyContent = "center";
+      if (closeBtn) {                              // Si existe botón cerrar
+        closeBtn.addEventListener("click", () => { // Evento cerrar
+          chatbotDiv.style.display = "none";       // Oculta chatbot
+          btn.style.display = "flex";              // Muestra botón flotante
         });
       }
 
-      // Botón agendar por WhatsApp
-      if (agendBtn) {
-        agendBtn.addEventListener("click", () => {
-          const whatsappNumber = "56912345678";
-          const message = encodeURIComponent("Hola Tattoo & Art, quiero agendar una hora.");
-          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-          window.open(whatsappUrl, "_blank");
+      if (agendBtn) {                              // Si existe botón agendar
+        agendBtn.addEventListener("click", () => { // Evento agendar
+          const whatsappNumber = "56912345678";    // Número de WhatsApp
+          const message = encodeURIComponent("Hola Tattoo & Art, quiero agendar una hora."); // Mensaje
+          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`; // URL completa
+          window.open(whatsappUrl, "_blank");      // Abre WhatsApp
         });
       }
-    }, 1500);
+    }, 1500);                                      // Tiempo del saludo
   };
 
-  // Evento para abrir chatbot
-  btn.addEventListener("click", () => {
-    showGreeting();
-  });
+  // -----------------------------
+  // ACTIVAR CHATBOT
+  // -----------------------------
 
-  // Botón externo para abrir chatbot
-  const reserveChatBtn = document.getElementById("btnReservaChat");
-  if (reserveChatBtn) {
-    reserveChatBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      showGreeting();
+  btn.addEventListener("click", showGreeting); // Abre chatbot al hacer clic
+
+  // -----------------------------
+  // BOTÓN EXTERNO PARA ABRIR CHATBOT
+  // -----------------------------
+
+  const reserveChatBtn = document.getElementById("btnReservaChat"); // Botón externo
+
+  if (reserveChatBtn) {                                             // Si existe
+    reserveChatBtn.addEventListener("click", (event) => {           // Evento clic
+      event.preventDefault();                                       // Evita recarga
+      showGreeting();                                               // Abre chatbot
     });
   }
 
-  // Formulario de contacto
-  const contactForm = document.getElementById("contactForm");
-  const contactStatus = document.getElementById("contactStatus");
+  // -----------------------------
+  // FORMULARIO DE CONTACTO
+  // -----------------------------
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      if (!contactStatus) return;
+  const contactForm = document.getElementById("contactForm");       // Formulario
+  const contactStatus = document.getElementById("contactStatus");   // Estado
 
-      contactStatus.textContent = "Enviando mensaje...";
+  if (contactForm) {                                                // Si existe
+    contactForm.addEventListener("submit", async (event) => {       // Evento enviar
+      event.preventDefault();                                       // Evita recarga
+      if (!contactStatus) return;                                   // Si no hay estado, termina
 
-      const formData = new FormData(contactForm);
-      const payload = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        message: formData.get("message"),
+      contactStatus.textContent = "Enviando mensaje...";            // Mensaje de carga
+
+      const formData = new FormData(contactForm);                   // Obtiene datos
+      const payload = {                                             // Crea objeto
+        name: formData.get("name"),                                 // Nombre
+        email: formData.get("email"),                               // Email
+        message: formData.get("message"),                           // Mensaje
       };
 
-      try {
-        const response = await fetch("/api/contact", {
+      try {                                                         // Intenta enviar
+        const response = await fetch("/api/contact", {              // Petición POST
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          headers: { "Content-Type": "application/json" },          // Envía JSON
+          body: JSON.stringify(payload),                            // Convierte a JSON
         });
 
-        const result = await response.json();
+        const result = await response.json();                       // Respuesta JSON
 
-        if (!response.ok) {
+        if (!response.ok) {                                         // Si hubo error
           contactStatus.textContent = result.error || "Error al enviar el mensaje.";
           return;
         }
 
-        contactStatus.textContent = "¡Mensaje enviado! Nos contactaremos pronto.";
-        contactForm.reset();
+        contactStatus.textContent = "¡Mensaje enviado! Nos contactaremos pronto."; // Éxito
+        contactForm.reset();                                        // Limpia formulario
 
-      } catch (error) {
+      } catch (error) {                                             // Error en petición
         contactStatus.textContent = "No se pudo enviar el mensaje. Intenta nuevamente más tarde.";
       }
     });
   }
 
-  // Formulario de subida de imágenes
-  const uploadForm = document.getElementById("uploadForm");
-  const uploadStatus = document.getElementById("uploadStatus");
-  const uploadPreview = document.getElementById("uploadPreview");
+  // -----------------------------
+  // FORMULARIO DE SUBIDA DE IMÁGENES
+  // -----------------------------
 
-  if (uploadForm) {
-    uploadForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      if (!uploadStatus) return;
+  const uploadForm = document.getElementById("uploadForm");         // Formulario
+  const uploadStatus = document.getElementById("uploadStatus");     // Estado
+  const uploadPreview = document.getElementById("uploadPreview");   // Vista previa
 
-      uploadStatus.textContent = "Subiendo archivo...";
-      uploadPreview.innerHTML = "";
+  if (uploadForm) {                                                 // Si existe
+    uploadForm.addEventListener("submit", async (event) => {        // Evento enviar
+      event.preventDefault();                                       // Evita recarga
+      if (!uploadStatus) return;                                    // Si no hay estado, termina
 
-      const fileInput = document.getElementById("uploadFile");
+      uploadStatus.textContent = "Subiendo archivo...";             // Mensaje de carga
+      uploadPreview.innerHTML = "";                                 // Limpia vista previa
 
-      if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-        uploadStatus.textContent = "Por favor selecciona una imagen.";
+      const fileInput = document.getElementById("uploadFile");      // Input archivo
+
+      if (!fileInput || !fileInput.files || fileInput.files.length === 0) { // Si no hay archivo
+        uploadStatus.textContent = "Por favor selecciona una imagen.";      // Error
         return;
       }
 
-      const formData = new FormData();
-      formData.append("file", fileInput.files[0]);
+      const formData = new FormData();                              // Crea FormData
+      formData.append("file", fileInput.files[0]);                  // Agrega archivo
 
-      try {
-        const response = await fetch("/api/upload", {
+      try {                                                         // Intenta subir
+        const response = await fetch("/api/upload", {               // Petición POST
           method: "POST",
-          body: formData,
+          body: formData,                                           // Envía FormData
         });
 
-        const result = await response.json();
+        const result = await response.json();                       // Respuesta JSON
 
-        if (!response.ok) {
+        if (!response.ok) {                                         // Si hubo error
           uploadStatus.textContent = result.error || "Error al subir el archivo.";
           return;
         }
 
-        uploadStatus.textContent = "¡Archivo subido con éxito!";
-        uploadPreview.innerHTML = `
+        uploadStatus.textContent = "¡Archivo subido con éxito!";    // Éxito
+        uploadPreview.innerHTML = `                                 // Vista previa
           <p class="text-light-50">Archivo disponible en:
             <a href="${result.url}" target="_blank">${result.url}</a>
           </p>
           <img src="${result.url}" class="img-fluid rounded shadow" alt="Vista previa de archivo subido">
         `;
 
-        uploadForm.reset();
+        uploadForm.reset();                                         // Limpia formulario
 
-      } catch (error) {
+      } catch (error) {                                             // Error en petición
         uploadStatus.textContent = "No se pudo subir el archivo. Intenta nuevamente más tarde.";
       }
     });
   }
 });
-
