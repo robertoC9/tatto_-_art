@@ -6,6 +6,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "tattoo-art",
+    resource_type: "image",
     allowed_formats: ["jpg", "jpeg", "png", "webp"],
   },
 });
@@ -13,3 +14,4 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 export default upload;
+

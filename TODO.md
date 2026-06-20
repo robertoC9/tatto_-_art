@@ -1,15 +1,17 @@
-# TODO - Responsividad (media queries)
+# TODO - Fix upload error (Render + Cloudinary)
 
-- [x] 1) Revisar y ajustar `style.css` base para que el header fijo no tape contenido en móviles (padding-top + altura del logo).
-- [x] 2) Agregar media queries: móvil (<576px), tablet (577-992px), desktop (>992px) para:
+## Plan de implementación
+- [x] 1) Editar `server.js` para agregar logging completo del error en `/api/upload` (req.file y estructura devuelta por CloudinaryStorage).
 
-  - [x] espaciados de secciones
-  - [x] tamaño del sticker `.subtitulo::before`
-  - [x] tamaños de imágenes (catálogo / artista)
-  - [x] chatbot flotante y botones fijos (ancho/posición)
+- [x] 2) Hacer que si no existe URL en la respuesta del storage, se devuelva un error claro (y status 500) en vez de retornar `url: undefined`.
 
-- [x] 3) Mejorar manejo de animaciones en móvil y/o `prefers-reduced-motion`.
-- [x] 4) Ajustar `header nav` para que no quede oculto en pantallas donde debe verse (según breakpoints).
+- [x] 3) Editar `config/cloudinary.js` para validar env vars al arrancar (si faltan `CLOUDINARY_*`, lanzar error con mensaje legible).
 
-- [ ] 5) Validación manual: probar en ~360px, ~768px y ~1366px.
+- [x] 4) (Opcional) Ajustar `config/multers.js` para incluir `resource_type: "image"`.
+
+- [ ] 5) Re-deploy en Render y prueba de subida.
+
+## Progreso
+- [x] Pendiente de confirmación/ejecución.
+
 

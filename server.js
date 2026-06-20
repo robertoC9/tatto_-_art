@@ -48,24 +48,46 @@ app.post("/api/contact", (req, res) => {
 
 
 // Endpoint para subida de imagen: multer-storage-cloudinary sube a Cloudinary
-app.post("/api/upload", multerUpload.single("file"), (req, res) => {
-  // multer-storage-cloudinary agrega info del upload al objeto req.file
+app.post("/api/upload", (req, res, next) => {
+  // wrapper para capturar el error de multer/storage
+  multerUpload.single("file")(req, res, (err) => {
+    if (err) return next(err);
+    return next();
+  });
+}, (req, res) => {
+  try {
+    // multer-storage-cloudinary agrega info del upload al objeto req.file
+    if (!req.file) {
+      console.error("[upload] req.file ausente", { body: req.body });
+      return res.status(400).json({ error: "No se recibió ningún archivo." });
+    }
 
-  if (!req.file) {
-    return res.status(400).json({ error: "No se recibió ningún archivo." });
+    // Dependiendo de la versión de multer-storage-cloudinary, la URL puede venir en distintos campos.
+    // También puede venir dentro de nested objects.
+    const secureUrl =
+      req.file?.secure_url ||
+      req.file?.secureUrl ||
+      req.file?.url ||
+      req.file?.path;
+
+    // Log para diagnóstico (Render puede no mostrar detalle si no hay logs)
+    console.log("[upload] req.file keys:", req.file && Object.keys(req.file));
+    console.log("[upload] req.file:", req.file);
+
+    if (!secureUrl) {
+      console.error("[upload] No se pudo resolver URL desde req.file", {
+        availableFields: req.file && Object.keys(req.file),
+      });
+      return res.status(500).json({
+        error: "Cloudinary no devolvió una URL utilizable para el archivo subido.",
+      });
+    }
+
+    return res.json({ ok: true, url: secureUrl });
+  } catch (e) {
+    console.error("[upload] Error inesperado:", e);
+    return res.status(500).json({ error: "Error inesperado al procesar el upload." });
   }
-
-  // Dependiendo de la versión de multer-storage-cloudinary, la URL puede venir en distintos campos.
-  // Mantenemos fallbacks para evitar “conflictos” de contrato entre dependencias.
-  const secureUrl =
-    req.file?.path ||
-    req.file?.secure_url ||
-    req.file?.secureUrl ||
-    req.file?.url;
-
-
-  // El frontend usa esta url para mostrar la imagen y el enlace
-  return res.json({ ok: true, url: secureUrl });
 });
 
 
