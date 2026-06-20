@@ -341,7 +341,159 @@ section + section {
     width: 70px;
     height: 70px;
   }
+
+  /* Header fijo: evitar que el contenido quede tapado */
+  body {
+    padding-top: 92px;
+  }
+
+  .header-logo {
+    height: 64px;
+  }
+
+  /* Sticker de subtítulos más pequeño */
+  .subtitulo::before {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 0.75rem;
+  }
+
+  /* Secciones más compactas */
+  section {
+    margin-top: 2.75rem;
+    margin-bottom: 2.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  section + section {
+    margin-top: 4rem;
+  }
+
+  #descripcion {
+    margin-bottom: 4.5rem;
+  }
+
+  #tatuadores {
+    margin-bottom: 6rem;
+  }
+
+  #contactos {
+    margin-top: 4rem;
+  }
+
+  /* Imágenes: evitar alturas exageradas */
+  .artist-image-large {
+    max-height: 280px;
+  }
+
+  /* Chatbot y botón música menos invasivos */
+  #chatbot-flotante {
+    width: min(92vw, 340px);
+    right: 12px;
+    bottom: 84px;
+    padding: 14px;
+  }
+
+  #play-music-btn {
+    left: 12px;
+    bottom: 12px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  #btnChat {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  /* Reducir movimiento si el usuario lo solicita */
+  @media (prefers-reduced-motion: reduce) {
+    .titulo, .subtitulo {
+      animation: none !important;
+    }
+    #descripcion .subtitulo,
+    #catalogo .subtitulo,
+    #servicios .subtitulo,
+    #tatuadores .subtitulo,
+    #contactos .subtitulo {
+      animation: none !important;
+    }
+  }
 }
+
+/* Tablet */
+@media (min-width: 577px) and (max-width: 992px) {
+  body {
+    padding-top: 96px;
+  }
+
+  .header-logo {
+    height: 76px;
+  }
+
+  .subtitulo::before {
+    width: 62px;
+    height: 62px;
+  }
+
+  section {
+    margin-top: 3.25rem;
+    margin-bottom: 3.25rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  #descripcion {
+    margin-bottom: 5.25rem;
+  }
+
+  #tatuadores {
+    margin-bottom: 8rem;
+  }
+
+  #contactos {
+    margin-top: 5rem;
+  }
+
+  .artist-image-large {
+    max-height: 340px;
+  }
+
+  #chatbot-flotante {
+    width: min(82vw, 360px);
+    right: 16px;
+    bottom: 88px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .titulo, .subtitulo {
+      animation: none !important;
+    }
+    #descripcion .subtitulo,
+    #catalogo .subtitulo,
+    #servicios .subtitulo,
+    #tatuadores .subtitulo,
+    #contactos .subtitulo {
+      animation: none !important;
+    }
+  }
+}
+
+/* Desktop */
+@media (min-width: 993px) {
+  .header-logo {
+    height: 90px;
+  }
+}
+
+/* Menú de navegación: no ocultarlo en desktop/tablet */
+@media (min-width: 577px) {
+  header nav {
+    display: block;
+  }
+}
+
 
 .btn-gradient::after {
   content: "";
@@ -444,10 +596,11 @@ section + section {
   background: red;
 }
 
-/* Oculta los botones/enlaces del header */
+/* Oculta los botones/enlaces del header (base mobile). Se re-habilita en breakpoints >=577px */
 header nav {
   display: none;
 }
+
 
 header {
   position: fixed;
