@@ -1,10 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 
-// Cloudinary se configura usando variables de entorno en Render.
-// Debes definir en Render:
-// - CLOUDINARY_CLOUD_NAME
-// - CLOUDINARY_API_KEY
-// - CLOUDINARY_API_SECRET
+// Variables obligatorias
 const requiredEnv = [
   "CLOUDINARY_CLOUD_NAME",
   "CLOUDINARY_API_KEY",
@@ -13,13 +9,14 @@ const requiredEnv = [
 
 const missing = requiredEnv.filter((k) => !process.env[k]);
 
-if (missing.length) {
-  // Fail fast para que Render muestre claramente por qué no funciona el upload.
-  throw new Error(
-    `Faltan variables de Cloudinary en el entorno: ${missing.join(", ")}`
-  );
-}
+// 🔥 Diagnóstico: imprime lo que Render está leyendo
+console.log("Cloudinary ENV:", {
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+});
 
+// Configuración de Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
